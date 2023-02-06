@@ -17,10 +17,10 @@ fieldLimitsY = [0 ylimit_outer];
 map = robotics.OccupancyGrid(zeros(fieldLimitsY(2),fieldLimitsX(2)));
 
 % Goal Post Parameters (X, Y, Object Index)
-goalPosts = [ 0 2.6 2; 
-              0 0.6 2; 
-             9 2.6 3; 
-             9 0.6 3];
+goalPosts = [ 1 2.5 2; 
+              1 5.5 2; 
+              10 2.5 3; 
+              10 5.5 3];
 
 
 fieldCenter = [mean(fieldLimitsX) mean(fieldLimitsY)];
@@ -67,7 +67,7 @@ randomizeStartingPositions;
 objDetectorOffset = [0 0];
 objDetectorAngle = 0;
 objDetectorFOV = pi/3;
-objDetectorRange = 100;
+objDetectorRange = 2;
 objColors = [0 0.75 0; 1 0 0; 0 0 1];
 objMarkers = 'o^^';
 objDetectorMaxHits = 5;
@@ -75,7 +75,7 @@ objDetectorMaxHits = 5;
 robotDetectorOffset = [0 0];
 robotDetectorAngle = 0;
 robotDetectorFOV = pi;
-robotDetectorRange = 4;
+robotDetectorRange = 2;
 robotDetectorMaxHits = 5;
 
 %% Behavior Logic Parameters
