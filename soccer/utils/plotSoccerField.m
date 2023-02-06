@@ -13,8 +13,6 @@ variables;
 % Title
 title('Robot Soccer Simulation');
 
-
-
 % Center circle
 viscircles([xlimit_outer/2 ylimit_outer/2],centrecircle_dia/2,'Color','k');
 
@@ -30,8 +28,9 @@ rectangle("Position", [xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit (ylim
 rectangle('Position', [xlimit_inner+xlimit_boarderstrip-goalarea_xlimit (ylimit_outer-goalarea_ylimit)/2 goalarea_xlimit goalarea_ylimit], 'LineWidth', 2)
 rectangle('Position', [xlimit_inner+xlimit_boarderstrip (ylimit_outer-goalpost_ylimit)/2 goalpost_xlimit goalpost_ylimit], 'LineWidth', 3)
 
-plot(xlimit_outer/2, [ylimit_boarderstrip ylimit_outer-(ylimit_boarderstrip+ylimit_inner)],'k-', 'LineWidth', 2)
-
+x1 = xlimit_outer/2;
+y1 = 10;
+plot([x1 x1],y1);
 
 % Remove default labels and ticks
 xlabel('');
