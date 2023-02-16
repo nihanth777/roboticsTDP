@@ -1,6 +1,6 @@
 %field dimentions
-ball_radius = 0.2;
-ball_threshold =0.05;
+ball_radius = 0.005;
+ball_threshold =0.0125;
 
 xlimit_outer = 11;
 ylimit_outer = 8;
@@ -24,5 +24,6 @@ centrecircle_dia = 1.5;
 
 penaltymark = 1.5;
 
+robot_radius = 0.01;
 
 

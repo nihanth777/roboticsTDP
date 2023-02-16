@@ -1,3 +1,5 @@
+variables
+
 %initial position ball
 
 x_ball_init = xlimit_outer/2;
@@ -16,20 +18,21 @@ y_gk_away_init = ylimit_outer/2;
 x_defend1_home = xlimit_boarderstrip+(xlimit_inner/4);
 y_defend1_home = ylimit_boarderstrip+(ylimit_inner/3);
 
-x_defend2_home = xlimit_boarderstrip+3*(xlimit_inner/4);
+x_defend2_home = xlimit_boarderstrip+(xlimit_inner/4);
 y_defend2_home = ylimit_boarderstrip+2*(ylimit_inner/3);
 
-x_defend1_away = xlimit_boarderstrip+(xlimit_inner/4);
+x_defend1_away = xlimit_boarderstrip+3*(xlimit_inner/4);
 y_defend1_away = ylimit_boarderstrip+(ylimit_inner/3);
 
 x_defend2_away = xlimit_boarderstrip+3*(xlimit_inner/4);
 y_defend2_away = ylimit_boarderstrip+2*(ylimit_inner/3);
 
+gamestate.start;
 
 if gamestate.start
-    coin = cointoss;
-elseif gamestate.outofplay
-    
+   [x_attacker_home,y_attacker_home,x_attacker_away,y_attacker_away] = cointoss;
+   gamestate.inplay;
 end
+
 
  
