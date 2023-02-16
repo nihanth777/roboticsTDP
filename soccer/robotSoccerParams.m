@@ -6,7 +6,6 @@ clear
 load soccerBusTypes;
 variables;
 
-
 %% Soccer field parameters
 % X and Y limits for the field
 
@@ -94,11 +93,11 @@ dribbleKickSpeed = 0.5;               % Kick speed for dribbling
 % Defender parameters
 defenderHomePoses = [xlimit_outer/4 ylimit_outer/4 0;
                      3*xlimit_outer/4 3*ylimit_outer/4 0]';   % Defender poses for home team
-defenderAwayPoses = [72 28.5 pi;
-                     72 18.5 pi]';  % Defender poses for away team
+defenderAwayPoses = [xlimit_outer/4 ylimit_outer/4 0;
+                     3*xlimit_outer/4 3*ylimit_outer/4 pi]';  % Defender poses for away team
 defenderKickSpeed = 1;              % Kick speed for defending
 
 % Goalkeeper parameters
-goalkeeperPoses = [ 2 23.5 0;
-                   90 23.5 pi]';    % Goalkeeper poses for home and away teams
-goalkeeperKickSpeed = 10;           % Kick speed for goalkeeping
+goalkeeperPoses = [ 2 4 0;
+                   8 4 pi]';    % Goalkeeper poses for home and away teams
+goalkeeperKickSpeed = 3;           % Kick speed for goalkeeping

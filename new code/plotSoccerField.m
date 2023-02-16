@@ -3,7 +3,6 @@
 % Copyright 2019 The MathWorks, Inc.
 
 % Find the figure number to start plotting over
-obj = findobj('Tag','MultiRobotEnvironment');
 figNum = 1;
 figure(figNum);
 hold on
@@ -28,6 +27,10 @@ rectangle('Position', [xlimit_inner+xlimit_boarderstrip (ylimit_outer-goalpost_y
 plot([xlimit_outer/2 xlimit_outer/2], [ylimit_boarderstrip ylimit_outer-ylimit_boarderstrip],'LineWidth',2,'Color','w')
 viscircles([xlimit_outer/2 ylimit_outer/2],centrecircle_dia/2,'Color','w');
 
+plot(xlimit_boarderstrip+penaltymark, ylimit_outer/2, Color='w',Marker='+',LineWidth=2);
+plot(xlimit_outer-xlimit_boarderstrip-penaltymark, ylimit_outer/2, Color='w',Marker='+',LineWidth=2);
+plot(xlimit_outer/2, ylimit_outer/2, Color='w',Marker='+',LineWidth=2);
+
 % Remove default labels and ticks
 xlabel('');
 ylabel('');
@@ -39,4 +42,4 @@ axis equal
 xlim([0 xlimit_outer]);
 ylim([0 ylimit_outer]);
 
-hold off
+
