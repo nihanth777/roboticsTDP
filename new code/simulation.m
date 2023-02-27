@@ -23,19 +23,20 @@ elseif ballposession.attacker_away == 5
         col = 'b';
 end
 
+rv=0;
 while rx < goal_x && ry ~=goal_y
     
     plotSoccerField
     
     phi = phicalculate(rx,ry,goal_x,goal_y);
-    [x_new,y_new] = movement(rx,ry,phi) ;
+    [x_new,y_new,v_new] = movement(rx,ry,phi,rv) ;
     [x,y] = robotposition([x_new,y_new],col,robot_radius,phi)
 
 
 
 
     ballposition(x+ball_threshold,y,ball_radius)
-    rx = x_new; ry = y_new;
+    rx = x_new; ry = y_new; rv = v_new;
     
 
     robotposition([x_gk_home_init,y_gk_home_init],col,robot_radius,phi)
