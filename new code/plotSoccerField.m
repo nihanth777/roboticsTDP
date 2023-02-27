@@ -42,4 +42,4 @@ axis equal
 xlim([0 xlimit_outer]);
 ylim([0 ylimit_outer]);
 
-
+hold off;
