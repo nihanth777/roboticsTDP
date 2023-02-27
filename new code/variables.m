@@ -32,6 +32,6 @@ robot_radius = 0.15*scaling;
 goal_point1 = 1.7*scaling;
 goal_point2 = 4.3*scaling;
 
-V = 10;
+V_robot = 10;
 
 
