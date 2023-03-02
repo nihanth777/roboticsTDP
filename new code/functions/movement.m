@@ -17,8 +17,8 @@ variables;
          if v<V_robot
             vx = v*cos(goal_phi);
             vy = v*sin(goal_phi);
-            x = X+sample_time*vx+0.5*a*sample_time^2;
-            y = Y+sample_time*vy+0.5*a*sample_time^2;
+            x = X+sample_time*vx+0.5*a*cos(goal_phi)*sample_time^2;
+            y = Y+sample_time*vy+0.5*a*sin(goal_phi)*sample_time^2;
             v = v+a*sample_time;
          else
             v = V_robot;
