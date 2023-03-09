@@ -51,8 +51,8 @@ phi=pi/4;
 % if ball is hold, ball_flag=1
 ball_flag=0; %initial the ball is free
 %intial ball position
-ball_x=x_ball_init-10;
-ball_y=y_ball_init-10;
+ball_x=x_ball_init-5;
+ball_y=y_ball_init-5;
 %skye
 VelBall = [0;0];
 AccBall = [0;0];
@@ -60,9 +60,7 @@ PositionBall = [ball_x;ball_y];
 ball = InitializeBall(PositionBall, VelBall, AccBall);
 
 % Timesteps of the simulation in seconds
-timeSteps = 540;
-% The gametime elapsed between every update
-timeDelta = 1;
+timeSteps = 450;
 % Time between drawing of each plot
 timeSync = 0.1;
 
@@ -78,9 +76,8 @@ while time < timeSteps
     plotSoccerField;
     plotplayers(players,robot_radius);%plot players
     ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
-    pause(timeSync);
     time=time+1;
-    
+    pause(timeSync);
 end
 plotSoccerField;
 

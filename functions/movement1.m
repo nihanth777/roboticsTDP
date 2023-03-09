@@ -1,6 +1,6 @@
 function [x,y,phi_new,v] = movement1(X,Y,x_goal,y_goal,phi,goal_phi,v)
 variables; 
-    a=10;
+    a=15;
     omega=1;
     noise=0.1*rand()-0.05;
     x=X;
