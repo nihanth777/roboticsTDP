@@ -21,6 +21,10 @@ function [] = plotplayers(players,robotradius)
        end
        i=i+1;
    end
+%     plot([params(1:4,1) x(1:4)],[params(1:4,2) y(1:4)],'LineWidth',2,Color='r');
+%     plot([params(5:8,1) x(5:8)],[params(5:8,2) y(5:8)],'LineWidth',2,Color='b');
+
+
    hold off;
 end
 

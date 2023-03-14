@@ -7,8 +7,10 @@ plotSoccerField;
 
 % initial plyaers
 nPlayers=8;
-teamofplayers = [zeros(nPlayers/2,1); ones(nPlayers/2,1)];
-players = {zeros(nPlayers,2),zeros(nPlayers,2),teamofplayers};
+%teamofplayers = [zeros(nPlayers/2,1); ones(nPlayers/2,1)];
+%players = {zeros(nPlayers,2),zeros(nPlayers,2),teamofplayers};
+Rpossession=zeros(8,1);
+players = {zeros(nPlayers,2),zeros(nPlayers,2),Rpossession};
 %positions
 players{1}(1:nPlayers/2,:)=robot_home_pos(:,1:2);
 players{1}(nPlayers/2+1:nPlayers,:)=robot_away_pos(:,1:2);
@@ -51,8 +53,8 @@ phi=pi/4;
 % if ball is hold, ball_flag=1
 ball_flag=0; %initial the ball is free
 %intial ball position
-ball_x=x_ball_init-5;
-ball_y=y_ball_init-5;
+ball_x=x_ball_init-15;
+ball_y=y_ball_init-15;
 %skye
 VelBall = [0;0];
 AccBall = [0;0];

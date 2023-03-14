@@ -1,5 +1,6 @@
 %field dimentions
 sample_time = 0.1;
+%sample_time = 1;
 scaling = 32;
 ball_radius = 0.07*scaling;
 ball_threshold =0.07*scaling;
