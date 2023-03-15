@@ -7,8 +7,10 @@ plotSoccerField;
 
 % initial plyaers
 nPlayers=8;
-teamofplayers = [zeros(nPlayers/2,1); ones(nPlayers/2,1)];
-players = {zeros(nPlayers,2),zeros(nPlayers,2),teamofplayers};
+%teamofplayers = [zeros(nPlayers/2,1); ones(nPlayers/2,1)];
+%players = {zeros(nPlayers,2),zeros(nPlayers,2),teamofplayers};
+Rpossession=zeros(8,1);
+players = {zeros(nPlayers,2),zeros(nPlayers,2),Rpossession};
 %positions
 players{1}(1:nPlayers/2,:)=robot_home_pos(:,1:2);
 players{1}(nPlayers/2+1:nPlayers,:)=robot_away_pos(:,1:2);
