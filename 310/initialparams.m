@@ -29,7 +29,7 @@ y_defend2_away = ylimit_boarderstrip+2*(ylimit_inner/3);
 
 flag_gamestart = gamestate.start;
 if flag_gamestart == gamestate.start
-   [x_attacker_home,y_attacker_home,x_attacker_away,y_attacker_away,flag_ballposession] = cointoss;
+   [x_attacker_home,y_attacker_home,x_attacker_away,y_attacker_away,flag_ballposession] = cointoss(players,ball);
   
    phi_gk_home = 0;
    phi_defend1_home = 0;
