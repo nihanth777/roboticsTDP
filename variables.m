@@ -34,6 +34,20 @@ goal_point1 = 1.7*scaling;
 goal_point2 = 4.3*scaling;
 
 % V = 33.6;
-V=10;
+% V=10;
+% omega=1;
+
+
+V=0.35*scaling;%max robot speed
+a=0.3*scaling;
+V_ball=0.52*scaling;%mean ball speed
+d_ball=1.062*scaling;%max ball distance
+t_ball=d_ball/V_ball;%time for ball to stop
+a_ball=V_ball*2/t_ball;
+omega= 1;
+
+maxactdist=2*scaling;
+
+
 
 
