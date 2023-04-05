@@ -1,9 +1,6 @@
 variables;
 
-%initial position ball
 
-x_ball_init = xlimit_outer/2;
-y_ball_init = ylimit_outer/2;
 
 %initial position robot
 
@@ -74,8 +71,3 @@ robot_away_pos = [x_gk_away_init  y_gk_away_init  phi_gk_away;
 % disp(params);
 % viscircles(bb,2,Color='r',LineWidth=1);
 % % viscircles(params,2,Color=col,LineWidth=1);
-
-
-
-
- 
