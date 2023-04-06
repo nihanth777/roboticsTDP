@@ -3,17 +3,32 @@ function [playerIndex]=shortPass(players,indexOfPlayers)
     %if players{3}(indexOfPlayers)==2 % for goalkeeper
 
     dis = radiusOfPlayer(players);
-    distance=dis(indexOfPlayers,:);
+    Minpassdis=10; % shortest passing distance
+    %distance=dis(indexOfPlayers,:);
 
 
     if indexOfPlayers<=4
-        distance=distance(1,1:4);
-        [~,playerIndex] = find(distance==min(distance(distance>0)));
+        disToTeamMates=dis(indexOfPlayers,1:4);
+        disToOpponents=dis(indexOfPlayers,5:8);
+
+        % [~,playerIndex] = find(distance==min(distance(distance>0)));
     else
-        distance=distance(1,5:8);
-        [~,playerIndex] = find(distance==min(distance(distance>0)));
-        playerIndex=playerIndex+4;
+        disToTeamMates=dis(indexOfPlayers,5:8);
+        disToOpponents=dis(indexOfPlayers,1:4);
+        % [~,playerIndex] = find(distance==min(distance(distance>0)));
+        % playerIndex=playerIndex+4;
     end
+
+    % avoid passing to the goalkeeper
+    disToTeamMates(1)=NaN;
+    disToTeamMates(5)=NaN;
+
+    disToTeamMates(disToTeamMates<Minpassdis)=NaN;
+    
+    [~, playerIndex]=min(disToTeamMates);
+
+
+
 %      if indexOfPlayers<=4
 % %          dist=distance(1:4);
 % %          dist=dist(dist ~= 0);

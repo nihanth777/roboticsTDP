@@ -20,7 +20,7 @@ players{2}(nPlayers/2+1:nPlayers,2)=pi;
 
 %ballposition(x_ball_init,y_ball_init,ball_radius);
 
-plotplayers(players,robot_radius)
+%plotplayers(players,robot_radius)
 
 if flag_ballposession == ballposession.player4 
         goal_x = x_gk_away_init;
@@ -65,12 +65,23 @@ time=0;
 
 ballposition(ball_x,ball_y,ball_radius);
 
+plotSoccerField;
+
+
+
 while time < timeSteps
     [players,ball]=Update1(players,ball);
-    %plot
-    plotSoccerField;
-    plotplayers(players,robot_radius);%plot players
-    ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
+    %plotSoccerField;
+    if time~=0
+        delete(p1);
+        delete(p2);
+        delete(p3);
+        delete(p4);
+    end 
+
+    [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
+
+    p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
     time=time+1;
     pause(timeSync);
 end

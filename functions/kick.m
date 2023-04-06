@@ -1,6 +1,7 @@
 function [players,ball] = kick(players,ball,indexOfPlayers,goal_phi)
 variables;
-ball_speed_max=90;
+%ball_speed_max=90;
+ball_speed_max=100;
 frictionCoefficient=-28.2;
 omega=3;
 noise=0.1*rand()-0.05;
