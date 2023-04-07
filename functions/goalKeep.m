@@ -1,48 +1,94 @@
-function [players,ball] = goalKeep(X,Y,x_goal,y_goal,phi,v,ball)
+function [players,ball] = goalKeep(players,ball,indexOfPlayers)
 %GOALKEEP Summary of this function goes here
 %   Detailed explanation goes here
-    variables;
+initialparams;
+rx=players{1}(indexOfPlayers,1);
+ry=players{1}(indexOfPlayers,2);
+rv=players{2}(indexOfPlayers,1);
+r_phi=players{2}(indexOfPlayers,2);
 
-    %if ball stick to one goalkeeper, turn to right angle and kick back
-    %if left goalkeeper have the ball
-    if players{3}(5)==1
-        [x,y,phi,v] = movement1(X,Y,x_goal,y_goal,phi,v);
 
-        % turn to right angle(0)
-        if abs(pi-phi) > omega*sample_time    
-            if (pi-phi) > 0
-                phi = phi+omega*sample_time+noise;
-            else
-                phi = phi-omega*sample_time+noise;
-            end
-            v=0;
-            x=X;
-            y=Y;
+% team who possess the ball
+% po=find(players{3}==1);
+% if po<=4 & indexOfPlayers<=4
+%     flag=1;
+% elseif po>4 & indexOfPlayers>4
+%     flag=1;
+% else
+%     flag=0;
 
-        else %if it is the right angle
-            ball=kick(ball,pi);
-        end
 
-    %if right goalkeeper have the ball
-    elseif players{3}(1)==1
-        % turn to right angle(pi)
-        if abs(pi-phi) > omega*sample_time   
 
-            if (pi-phi) > 0
-                phi = phi+omega*sample_time+noise;
-            else
-                phi = phi-omega*sample_time+noise;
-            end
-            v=0;
-            x=X;
-            y=Y;
-
-        else %if it is the right angle
-            ball=kick(ball,0);
-        end
-
-    else %ball not with goalkeeper
-        [x,y,phi,v] = movement1(X,Y,x_goal,y_goal,phi,v);
-    end
+if indexOfPlayers<=4
+    goal_x = x_gk_away_init;
+    goal_y = goal_point1 + (goal_point2-goal_point1)*randi(1,1);
+    keep_x=x_gk_home_init;
+    keep_y=goal_point1 + (goal_point2-goal_point1)*randi(1,1);
+else
+    goal_x = x_gk_home_init;
+    goal_y = goal_point1 + (goal_point2-goal_point1)*randi(1,1);
+    keep_x = x_gk_away_init;
+    keep_y = goal_point1 + (goal_point2-goal_point1)*randi(1,1);
 end
+
+
+
+ball_x=ball(1,1);
+ball_y=ball(1,2);
+
+
+disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
+
+if disttoball<maxactdist% act or not 
+    if players{3}(indexOfPlayers)==0 % player and its teammates not possess the ball
+        if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8
+            [players,ball] = possession(indexOfPlayers,players, ball);
+            %possess_flag=ballposession.player;
+        else %if the player does not possess the ball ,move to ball
+            [x_new,y_new,phi_new,v_new] = movement2(rx,ry,ball_x,ball_y,r_phi,rv);
+            %update player
+            players{1}(indexOfPlayers,1)=x_new;
+            players{1}(indexOfPlayers,2)=y_new;
+            players{2}(indexOfPlayers,1)=v_new;
+            players{2}(indexOfPlayers,2)=phi_new;
+        end   
+
+    % elseif players{3}(indexOfPlayers)==2 %goalkeeper after its defend, go back
+    %     [x_new,y_new,phi_new,v_new] = movement2(rx,ry,keep_x,keep_y,r_phi,rv);
+    %     %update player
+    %     players{1}(indexOfPlayers,1)=x_new;
+    %     players{1}(indexOfPlayers,2)=y_new;
+    %     players{2}(indexOfPlayers,1)=v_new;
+    %     players{2}(indexOfPlayers,2)=phi_new;
+    %     if abs(x_new-keep_x)<=4.8 && abs(y_new-keep_y)<=4.8
+    %         players{3}(indexOfPlayers)=0;
+    %     end
+    else %possess the ball 
+        %pass ball test
+        playerIndex=shortPass(players,indexOfPlayers);
+        goal_x=players{1}(playerIndex,1);
+        goal_y=players{1}(playerIndex,2);
+    
+        goal_phi = phicalculate(rx,ry,goal_x,goal_y);
+        [players,ball]=kick(players,ball,indexOfPlayers,goal_phi);
+
+        %players{2}(indexOfPlayers,2)=goal_phi;
+
+    end
+else
+    [x_new,y_new,phi_new,v_new] = movement2(rx,ry,keep_x,keep_y,r_phi,rv);
+    %update player
+    players{1}(indexOfPlayers,1)=x_new;
+    players{1}(indexOfPlayers,2)=y_new;
+    players{2}(indexOfPlayers,1)=v_new;
+    players{2}(indexOfPlayers,2)=phi_new;
+    if abs(x_new-keep_x)<=4.8 && abs(y_new-keep_y)<=4.8
+        %players{3}(indexOfPlayers)=0;
+        
+    end
+
+end
+
+
+
 

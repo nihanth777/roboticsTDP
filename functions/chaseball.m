@@ -81,10 +81,7 @@ if disttoball<maxactdist% act or not
         end
         goal_phi = phicalculate(rx,ry,goal_x,goal_y);
         [players,ball]=kick(players,ball,indexOfPlayers,goal_phi);
-        % players{3}(1)=2;
-        % players{3}(5)=2;
 
-        %players{2}(indexOfPlayers,2)=goal_phi;
 
     end
 end
