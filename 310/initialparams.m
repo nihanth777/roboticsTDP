@@ -51,9 +51,9 @@ robot_away_pos = [x_gk_away_init  y_gk_away_init  phi_gk_away;
                   x_defend2_away  y_defend2_away  phi_defend2_away;
                   x_attacker_away y_attacker_away phi_attacker_away];
 
+
 %positions
 players{1}(1:nPlayers/2,:)=robot_home_pos(:,1:2);
 players{1}(nPlayers/2+1:nPlayers,:)=robot_away_pos(:,1:2);
 
 end
- 

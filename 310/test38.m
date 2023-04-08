@@ -13,8 +13,15 @@ players{2}(:,1)=0;
 players{2}(1:nPlayers/2,2)=0;
 players{2}(nPlayers/2+1:nPlayers,2)=pi;
 
+
 rv=0;
 phi=pi/4;
+
+%initial position ball
+
+x_ball_init = xlimit_outer/2;
+y_ball_init = ylimit_outer/2;
+
 
 %ball simulation
 % if ball is free, ball_flag=0
@@ -59,4 +66,3 @@ while time < timeSteps
     pause(timeSync);
 end
 plotSoccerField;
-
