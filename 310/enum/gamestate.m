@@ -4,5 +4,6 @@ classdef gamestate < Simulink.IntEnumType
         inplay(2)
         outofplay(3)
         goalscored(4)
+        gameend(5)
     end
 end

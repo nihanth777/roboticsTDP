@@ -6,7 +6,7 @@ variables;
     x=X;
     y=Y;
 
-    %%%%%%% turn to right angle before run
+    %turn to right angle before run
     if abs(goal_phi-phi)>sample_time*omega
          if (goal_phi-phi) > 0
                 phi_new = phi+omega*sample_time+noise;
@@ -17,11 +17,11 @@ variables;
          x=X;
          y=Y;
 
-    %%%%%%% run
+    %run
     else
          phi_new = goal_phi;
          
-         %%%%%% if distance is close enough, deaccelerate
+         %if distance is close enough, deaccelerate
          if sqrt((x_goal-x)^2 + (y_goal-y)^2) <= 0.5*V^2/a
             if v-sample_time*a > 0
                 vx = v*cos(goal_phi);
@@ -35,7 +35,7 @@ variables;
                 y=y;
             end
 
-        %%%%%% if distance is not close enough, accelerate    
+        %if distance is not close enough, accelerate    
         else
             if v+a*sample_time < V 
                 vx = v*cos(goal_phi);

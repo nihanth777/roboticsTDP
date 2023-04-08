@@ -35,4 +35,9 @@ goal_point2 = 4.3*scaling;
 % V = 33.6;
 V=10;
 
+x_ball_init = xlimit_outer/2;
+y_ball_init = ylimit_outer/2;
+
+nPlayers = 8;
+
 

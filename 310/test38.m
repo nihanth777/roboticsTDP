@@ -2,70 +2,39 @@ flag_gamestart = gamestate.start;
  
 variables;
 %initial players
-%initialparams;
+
 plotSoccerField;
 
-% initial plyaers
-nPlayers=8;
-%teamofplayers = [zeros(nPlayers/2,1); ones(nPlayers/2,1)];
-%players = {zeros(nPlayers,2),zeros(nPlayers,2),teamofplayers};
 Rpossession=zeros(8,1);
-players = {zeros(nPlayers,2),zeros(nPlayers,2),Rpossession};
+players = {zeros(nPlayers,2),zeros(nPlayers,2),Rpossession,zeros(8,2)};
 
 %speed and angle
 players{2}(:,1)=0;
 players{2}(1:nPlayers/2,2)=0;
 players{2}(nPlayers/2+1:nPlayers,2)=pi;
 
+rv=0;
+phi=pi/4;
+
 %ball simulation
 % if ball is free, ball_flag=0
 % if ball is hold, ball_flag=1
 ball_flag=0; %initial the ball is free
 %intial ball position
-ball_x=x_ball_init-5;
-ball_y=y_ball_init-5;
+ball_x=x_ball_init;
+ball_y=y_ball_init;
 %skye
 VelBall = [0;0];
 AccBall = [0;0];
 PositionBall = [ball_x;ball_y];
 ball = InitializeBall(PositionBall, VelBall, AccBall);
 
-initialparams;
-%ballposition(x_ball_init,y_ball_init,ball_radius);
+[players,gamestate_flag,ball_posess_flag] = initialparams(players);
 
-%positions
-players{1}(1:nPlayers/2,:)=robot_home_pos(:,1:2);
-players{1}(nPlayers/2+1:nPlayers,:)=robot_away_pos(:,1:2);
+[players,~] = possession(ball_posess_flag,players,ball);
 
-% robotposition(robot_home_pos,'r',robot_radius);
-% robotposition(robot_away_pos,'b',robot_radius);
-plotplayers(players,robot_radius)
-
-if flag_ballposession == ballposession.attacker_home 
-        goal_x = x_gk_away_init;
-        goal_y = goal_point1 + (goal_point2-goal_point1)*randi(1,1);
-        rx = robot_home_pos(4,1);
-        ry = robot_home_pos(4,2);
-        col = 'r';
-        [players,~] = possession(4,players, ball);
-       
-elseif flag_ballposession == ballposession.attacker_away
-
-        goal_x = x_gk_home_init;
-        goal_y = goal_point1 + (goal_point2-goal_point1)*randi(1,1);
-        rx = robot_away_pos(4,1);
-        ry = robot_away_pos(4,2);
-        col = 'b';
-        [players,~] = possession(8,players, ball);
-        
-end
-
-
-rv=0;
-phi=pi/4;
-
-
-
+players{3}(4)
+players{3}(8)
 
 % Timesteps of the simulation in seconds
 timeSteps = 450;
@@ -77,19 +46,17 @@ time=0;
 %pause(15)
 
 ballposition(ball_x,ball_y,ball_radius);
+[~,~,~,~,~,players] = plotplayers(players,robot_radius);
+
 
 while time < timeSteps
     [players,ball]=Update1(players,ball);
-    %[players,ball] = robotbehaviour(players,ball);
     %plot
     plotSoccerField;
-    
-
-    plotplayers(players,robot_radius);%plot players
+    [~,~,~,~,~,players] = plotplayers(players,robot_radius);%plot players
     ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
     time=time+1;
     pause(timeSync);
-    
 end
 plotSoccerField;
 
