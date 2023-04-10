@@ -50,19 +50,23 @@ timeSync = 0.1;
 
 % Whit these settings one simulation will take 54 seconds
 time=0;
-%pause(15)
 
-ballposition(ball_x,ball_y,ball_radius);
-[~,~,~,~,~,players] = plotplayers(players,robot_radius);
 
 
 while time < timeSteps
     [players,ball]=Update1(players,ball);
-    %plot
-    plotSoccerField;
-    [~,~,~,~,~,players] = plotplayers(players,robot_radius);%plot players
-    ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
+    if time~=0
+        delete(p1);
+        delete(p2);
+        delete(p3);
+        delete(p4);
+    end 
+
+    [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
+
+    p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
     time=time+1;
     pause(timeSync);
 end
+
 plotSoccerField;
