@@ -55,7 +55,7 @@ PositionBall = [ball_x;ball_y];
 ball = InitializeBall(PositionBall, VelBall, AccBall);
 
 % Timesteps of the simulation in seconds
-timeSteps = 450;
+timeSteps = 4500;
 % Time between drawing of each plot
 timeSync = 0.1;
 

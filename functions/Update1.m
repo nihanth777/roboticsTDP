@@ -11,7 +11,7 @@ for indexOfPlayer = 1:8
     end
 
 end
-
+[players] = collision(players);
 ball = ballfree(ball);
 
 end
