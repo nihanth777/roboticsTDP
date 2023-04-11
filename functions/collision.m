@@ -1,6 +1,6 @@
 function [players] = collision(players)
 % collision
-collisiondist=4.8*2; %2D
+collisiondist=4.8*3.5; %2D
 dist=radiusOfPlayer(players);
 for i=1:8
     dist(i,i)=NaN;
