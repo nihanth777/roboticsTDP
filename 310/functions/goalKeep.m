@@ -11,13 +11,14 @@ r_phi=players{2}(indexOfPlayers,2);
 
 %team who possess the ball
 po=find(players{3}==1);
-if po==[]
+TF = isempty(po);
+if TF==1
     flag=0;
    
 else
-    if po<=4 & indexOfPlayers<=4
+    if po<=4 && indexOfPlayers<=4
         flag=1;
-    elseif po>4 & indexOfPlayers>4
+    elseif po>4 && indexOfPlayers>4
         flag=1;
     else
         flag=0;

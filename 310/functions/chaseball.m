@@ -21,7 +21,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                 if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
                         [players,ball] = possession(indexOfPlayers,players, ball);
                 else
-                    if indexOfPlayers == 4 || indexOfPlayers ==8 
+                    if indexOfPlayers == 4 
                         %if the player does not possess the ball ,move to ball
                         [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                      
@@ -83,6 +83,11 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                             [players] = target(indexOfPlayers,players,ball,xlimit_inner-penaltyarea_xlimit,ylimit_outer/2);
         
                         end
+                    
+                    elseif indexOfPlayers == 8
+                        
+                        [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                    
                     end
                 end
             end
@@ -98,7 +103,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             
             prob = rand;
 
-            if dist_to_goal < d_ball/2
+            if dist_to_goal < 2*d_ball
 
                 if prob<0.7
                     
