@@ -1,18 +1,18 @@
-function [p1,p2,p3] = plotplayers(players,robotradius)
+function [p1,p2,p3,players] = plotplayers(players,robotradius)
    hold on;
-   % plt.cla()
-
+   
    variables;
    params=players{1};
    angle=players{2}(:,2);
   
-   %viscircles([params(0:4,1) , params(0:4,2)],robotradius,'r',LineWidth=1);
-   %viscircles([params(5:8,1) , params(5:8,2)],robotradius,'b',LineWidth=1);
    p1=viscircles(params(1:4,:),robotradius,Color='r',LineWidth=1);
    p2=viscircles(params(5:8,:),robotradius,Color='b',LineWidth=1);
 
    x=params(:,1)+((2*robotradius)*cos(angle));
    y=params(:,2)+((2*robotradius)*sin(angle));
+
+   players{4}(:,1) = x;
+   players{4}(:,2) = y;
 
    %drawnow;
    

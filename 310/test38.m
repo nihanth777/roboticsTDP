@@ -59,7 +59,11 @@ time=0;
 initialplayers=players;
 
 while time < timeSteps
+
+    
+    
     [players,ball]=Update1(players,ball);
+
     if time~=0
         delete(p1);
         delete(p2);
@@ -67,7 +71,7 @@ while time < timeSteps
         delete(p4);
     end 
 
-    [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
+    [p1,p2,p3,players]=plotplayers(players,robot_radius);%plot players
     p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
     
     % controller. check boundary and mark score

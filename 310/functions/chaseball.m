@@ -35,6 +35,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                         else
         
                             %do nothing
+                            [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
         
                         end
                     
@@ -79,6 +80,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                         else
         
                             %do nothing
+                            [players] = target(indexOfPlayers,players,ball,xlimit_inner-penaltyarea_xlimit,ylimit_outer/2);
         
                         end
                     end
@@ -198,7 +200,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             [p8x,p8y,~,~,~] = playerPosition(8,players,ball);
            
         
-            if distance_all(index,2) < distance_all(indexOfPlayers,6)  %% add condition to check for opp players and select acc to angle to avoid as well
+            if distance_all(indexOfPlayers,2) < distance_all(indexOfPlayers,6)  %% add condition to check for opp players and select acc to angle to avoid as well
               
                 tx = p6x;
                 ty = p6y;

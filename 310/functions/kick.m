@@ -20,7 +20,7 @@ else
             rphi_new = r_phi-omega*sample_time+noise;
      end
      players{2}(indexOfPlayers,2)=rphi_new;
-     ball(1,1)=players{1}(indexOfPlayers,1)+((2*robot_radius)*cos(rphi_new));
-     ball(1,2)=players{1}(indexOfPlayers,2)+((2*robot_radius)*sin(rphi_new));
+%      ball(1,1)=players{1}(indexOfPlayers,1)+((2*robot_radius)*cos(rphi_new));
+%      ball(1,2)=players{1}(indexOfPlayers,2)+((2*robot_radius)*sin(rphi_new));
 end
 end
