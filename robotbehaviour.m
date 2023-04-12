@@ -54,9 +54,10 @@ elseif ball_posession == 1 && index == 2   %%support main attacker(4) or try to 
     
     distance_all = radiusOfPlayer(players);
     [px,py,~,~,~] = playerPosition(index,players,ball);
+
     %% for now its random point, to be changed to point that is farthest angle from defending goal keep & with in goal frame
-    [players,ball] = target(index,players,ball,272,100);% rand here
-    [players,ball] = dribble(players,ball,index);
+    [players] = target(index,players,ball,272,100);% rand here
+    [ball] = dribble(players,ball,index);
     
     % added after 
     if (px>190)
@@ -119,6 +120,8 @@ elseif ball_posession == 1 && index == 4 %% checks for the nearest player among 
 
         t_phi = phicalculate(px,py,p2x,p2y);
         [players,ball] = kick(players,ball,index,t_phi);
+        players{3}(index) = 0;
+        players{3}(2) = 1;
         
     else
        
@@ -216,19 +219,29 @@ elseif ball_posession == 0 && index == 1
 
 elseif ball_posession == 0 && index == 2
     
-    if ball_posession == 1 && index == 4
-    [players,ball] = target(index,players,ball,194,64);% rand here
-    [players,ball] = dribble(players,ball,index);
+    if players{3}(4) == 1
+     [players] = target(index,players,ball,194,64);% rand here
+     [ball] = dribble(players,ball,index);
     end
-
 elseif ball_posession == 0 && index == 3   %%% stand in defending position
     
-    if ball_posession == 1 && index == 4
-    [players,ball] = target(index,players,ball,230,64);% rand here
-    [players,ball] = dribble(players,ball,index);
+    if players{3}(4) == 1
+     [players] = target(index,players,ball,230,187);% rand here
+     [ball] = dribble(players,ball,index);
     end
 
 elseif ball_posession == 0 && index == 4
+
+    %if (players{3}(2) == 1) 
+     %[players] = target(index,players,ball,270,144);% rand here
+     %[ball] = dribble(players,ball,index);
+    %end
+   % if (players{3}(3) == 1) 
+   %  [players] = target(index,players,ball,270,144);% rand here
+   %  [ball] = dribble(players,ball,index);
+   % end
+   %[players] = target(index,players,ball,270,144);% rand here
+   %[ball] = dribble(players,ball,index);
     
     
  
