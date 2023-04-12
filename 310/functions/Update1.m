@@ -1,18 +1,27 @@
 function [players,ball] = Update1(players,ball)
+% update the players and ball
+for indexOfPlayer = 1:8
+    % [players, ball] = chaseball(players, ball, indexOfPlayer);
+    if indexOfPlayer==1 || indexOfPlayer==5 % goalkeeper
+        [players,ball]=goalKeep(players,ball,indexOfPlayer);
 
-for indexOfPlayer = 2:4
+    else % defender or attacker
+        [players, ball] = chaseball(players, ball, indexOfPlayer);
 
-    [players, ball] = robotbehaviour(players, ball, indexOfPlayer);
+    end
 
 end
 
-for indexOfPlayer = 6:8
-
-    [players, ball] = robotbehaviour(players, ball, indexOfPlayer);
-
-end
-
+[players] = collision(players);
 ball = ballfree(ball);
 
+check_bound = checkOutOfBounds(ball);
+
+if check_bound == true
+    
+    
+
 end
 
+
+end

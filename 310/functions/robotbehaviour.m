@@ -2,9 +2,6 @@ function [players, ball] = robotbehaviour(players,ball,index)
 variables;
 ball_posession = players{3}(index);
 
-
-
-
 % if players{3}(:,1) == 0
 %     for i=1:8
 %         [~,~,~,~,dist] = playerPosition(i,players,ball);
@@ -15,8 +12,6 @@ ball_posession = players{3}(index);
 %         end
 %     end
 % end 
-
-
 
 if players{3}(:,1) == 0 %% condition to be changed to assign ball to someone
     [ball] = ballfree(ball);
@@ -216,7 +211,7 @@ elseif ball_posession == 0 && index == 2
 
 elseif ball_posession == 0 && index == 3   %%% stand in defending position
     
-    [players]=target(index,players,ball,xlimit_outer/4,ylimit_outer/2);
+    [players]=target(index,players,ball,xlimit_outer/2,ylimit_outer/4);
 
 elseif ball_posession == 0 && index == 4
     

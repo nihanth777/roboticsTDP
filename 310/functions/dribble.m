@@ -8,4 +8,3 @@ ball(1,1) = x;
 ball(1,2) = y;
 
 end
-

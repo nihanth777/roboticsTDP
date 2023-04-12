@@ -1,5 +1,5 @@
 flag_gamestart = gamestate.start;
- 
+
 variables;
 %initial players
 
@@ -12,6 +12,9 @@ players = {zeros(nPlayers,2),zeros(nPlayers,2),Rpossession,zeros(8,2)};
 players{2}(:,1)=0;
 players{2}(1:nPlayers/2,2)=0;
 players{2}(nPlayers/2+1:nPlayers,2)=pi;
+
+score_home = 0; 
+score_away = 0;
 
 
 rv=0;
@@ -44,7 +47,7 @@ players{3}(4)
 players{3}(8)
 
 % Timesteps of the simulation in seconds
-timeSteps = 450;
+timeSteps = 4500;
 % Time between drawing of each plot
 timeSync = 0.1;
 
@@ -65,6 +68,9 @@ while time < timeSteps
     [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
 
     p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
+
+    [score_home, score_away] = goalscore(ball, score_home, score_away);
+
     time=time+1;
     pause(timeSync);
 end

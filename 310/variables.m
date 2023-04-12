@@ -40,4 +40,18 @@ y_ball_init = ylimit_outer/2;
 
 nPlayers = 8;
 
+V=0.35*scaling;%max robot speed
+a=0.3*scaling;
+V_ball=0.52*scaling;%mean ball speed
+d_ball=1.062*scaling;%max ball distance
+t_ball=d_ball/V_ball;%time for ball to stop
+a_ball=V_ball*2/t_ball;
+omega= 1;
 
+maxactdist=2*scaling;
+
+%goalkeep
+x_gk_home_init = xlimit_boarderstrip;
+y_gk_home_init = ylimit_outer/2;
+x_gk_away_init = xlimit_inner+xlimit_boarderstrip;
+y_gk_away_init = ylimit_outer/2;
