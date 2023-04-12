@@ -17,10 +17,10 @@ players{2}(:,1)=0;
 players{2}(1:nPlayers/2,2)=0;
 players{2}(nPlayers/2+1:nPlayers,2)=pi;
 
-
+initialplayers=players;
 %ballposition(x_ball_init,y_ball_init,ball_radius);
 
-%plotplayers(players,robot_radius)
+plotplayers(players,robot_radius)
 
 if flag_ballposession == ballposession.player4 
         goal_x = x_gk_away_init;
@@ -82,6 +82,19 @@ while time < timeSteps
     [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
 
     p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
+
+    % controller. check boundary and mark score
+    % check the boundary
+    
+    check_bound = checkOutOfBounds(ball);
+    if check_bound == true
+        ball = InitializeBall(PositionBall, VelBall, AccBall);
+        %[players,~,~] = initialparams(players);
+        players=initialplayers;
+
+    end
+
+
     time=time+1;
     pause(timeSync);
 end

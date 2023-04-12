@@ -9,11 +9,11 @@ function [playerIndex]=shortPass(players,indexOfPlayers)
 
     if indexOfPlayers<=4
         disToTeamMates=dis(indexOfPlayers,1:4);
-        disToOpponents=dis(indexOfPlayers,5:8);
+        %disToOpponents=dis(indexOfPlayers,5:8);
 
     else
         disToTeamMates=dis(indexOfPlayers,5:8);
-        disToOpponents=dis(indexOfPlayers,1:4);
+        %disToOpponents=dis(indexOfPlayers,1:4);
     end
 
     % avoid passing to the goalkeeper
