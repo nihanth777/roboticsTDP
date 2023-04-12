@@ -1,6 +1,6 @@
 function [goal_phi,goal_x,goal_y] = kickaim(players,indexOfPlayers)
 % kick aim is the farest position from the goalkeeper
-initialparams;
+variables;
 rx=players{1}(indexOfPlayers,1);
 ry=players{1}(indexOfPlayers,2);
 

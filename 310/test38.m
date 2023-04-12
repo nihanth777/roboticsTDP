@@ -20,6 +20,8 @@ score_away = 0;
 rv=0;
 phi=pi/4;
 
+
+
 %initial position ball
 
 x_ball_init = xlimit_outer/2;
@@ -54,7 +56,7 @@ timeSync = 0.1;
 % Whit these settings one simulation will take 54 seconds
 time=0;
 
-
+initialplayers=players;
 
 while time < timeSteps
     [players,ball]=Update1(players,ball);
@@ -66,9 +68,17 @@ while time < timeSteps
     end 
 
     [p1,p2,p3]=plotplayers(players,robot_radius);%plot players
-
     p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
+    
+    % controller. check boundary and mark score
+    % check the boundary
+    check_bound = checkOutOfBounds(ball);
+    if check_bound == true
+        ball = InitializeBall(PositionBall, VelBall, AccBall);
+        players=initialplayers;
 
+    end
+    % mark score
     [score_home, score_away] = goalscore(ball, score_home, score_away);
 
     time=time+1;

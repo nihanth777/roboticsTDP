@@ -13,53 +13,82 @@ ball_y=ball(1,2);
 
 disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
 
-    if players{3}(indexOfPlayers)==0 % player and its teammates not possess the ball
+    if players{3}(indexOfPlayers)==0  % player and its teammates not possess the ball
         
-        if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
-                [players,ball] = possession(indexOfPlayers,players, ball);
+        if indexOfPlayers <=4
+            if players{3}(1:4) == 0
+
+                if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
+                        [players,ball] = possession(indexOfPlayers,players, ball);
+                else
+                    if indexOfPlayers == 4 || indexOfPlayers ==8 
+                        %if the player does not possess the ball ,move to ball
+                        [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                     
+                
+                    elseif indexOfPlayers == 3
+        
+                        if disttoball<=maxactdist
+                    
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+        
+                            %do nothing
+        
+                        end
+                    
+                    elseif indexOfPlayers == 2 
+                    
+                        if players{3}(3:4) == 0
+                            
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+                            
+                            [players] = target(indexOfPlayers,players,ball,near_point(id,1),near_point(id,2));
+                       
+                        end
+                    end
+                end
+            end
         else
-            if indexOfPlayers == 4 || indexOfPlayers ==8 
-                %if the player does not possess the ball ,move to ball
-                [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
-             
-        
-            elseif indexOfPlayers == 3
 
-                if disttoball<=maxactdist
-            
-                    [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
-                
+            if players{3}(5:8) == 0
+                if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
+                        [players,ball] = possession(indexOfPlayers,players, ball);
                 else
-
-                    %do nothing
-
-                end
-            
-            elseif indexOfPlayers == 2 
-            
-                if players{3}(3:4) == 0
-                    
-                    [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
-                
-                else
+                    if indexOfPlayers == 6 %support attacker
     
-                   
-                    
-                    [players] = target(indexOfPlayers,players,ball,near_point(id,1),near_point(id,2));
-                end
-            
-            elseif indexOfPlayers == 6
+                        if players{3}(7:8) == 0
+                            
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+                            [pos] = supportposition(players,indexOfPlayers);
+                            [players] = target(indexOfPlayers,players,ball,pos(1),pos(2));
+                       
+                        end
 
-            elseif indexOfPlayers == 7  
-           
+                    elseif indexOfPlayers ==7
+                        
+                        if disttoball<=maxactdist
+                    
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+        
+                            %do nothing
+        
+                        end
+                    end
+                end
             end
         end
 
-        
-
     else %possess the ball 
 
-        if indexOfPlayers==4 
+        if indexOfPlayers==4 || indexOfPlayers == 8
            
             playerIndex=shortPass(players,indexOfPlayers);
             [goal_phi,goal_x,goal_y] = kickaim(players,indexOfPlayers);
@@ -86,7 +115,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                 [ball] = dribble(players,ball,indexOfPlayers);
             end
         
-        elseif indexOfPlayers==2 
+        elseif indexOfPlayers==2
             
             distance_all = radiusOfPlayer(players);
              
@@ -96,13 +125,13 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             
             goal_dist = pdist(goal_point,"euclidean");
         
-            if goal_dist <= distance_all(index,4) && goal_dist < d_ball/2
+            if goal_dist <= distance_all(indexOfPlayers,4) && goal_dist < d_ball/2
               
                 [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
                
             else 
         
-                [p4x,p4y,~,~,~] = playerPosition(index,players,ball);
+                [p4x,p4y,~,~,~] = playerPosition(4,players,ball);
               
                 tx = p4x;
                 ty = p4y;
@@ -121,7 +150,7 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             [p4x,p4y,~,~,~] = playerPosition(4,players,ball);
            
         
-            if distance_all(index,2) < distance_all(index,4)  %% add condition to check for opp players and select acc to angle to avoid as well
+            if distance_all(indexOfPlayers,2) < distance_all(indexOfPlayers,4)  %% add condition to check for opp players and select acc to angle to avoid as well
               
                 tx = p2x;
                 ty = p2y;
@@ -136,7 +165,55 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             t_phi = phicalculate(rx,ry,tx,ty);
             [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
         
+        elseif indexOfPlayers == 6
+
+            distance_all = radiusOfPlayer(players);
+             
+            [goal_phi,goal_x,goal_y] = kickaim(players,indexOfPlayers);
+           
+            goal_point = [rx,ry;goal_x,goal_y];
+            
+            goal_dist = pdist(goal_point,"euclidean");
         
+            if goal_dist <= distance_all(indexOfPlayers,8) && goal_dist < d_ball/2
+              
+                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+               
+            else 
+        
+                [p8x,p8y,~,~,~] = playerPosition(8,players,ball);
+              
+                tx = p8x;
+                ty = p8y;
+                t_phi = phicalculate(rx,ry,tx,ty);
+                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+            
+            end
+                
+        elseif indexOfPlayers == 7
+
+            distance_all = radiusOfPlayer(players);
+           
+            [p6x,p6y,~,~,~] = playerPosition(6,players,ball);
+            [p8x,p8y,~,~,~] = playerPosition(8,players,ball);
+           
+        
+            if distance_all(index,2) < distance_all(indexOfPlayers,6)  %% add condition to check for opp players and select acc to angle to avoid as well
+              
+                tx = p6x;
+                ty = p6y;
+               
+            else
+              
+                tx = p8x;
+                ty = p8y;
+            
+            end
+            
+            t_phi = phicalculate(rx,ry,tx,ty);
+            [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+
+
         end
     end
 

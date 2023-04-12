@@ -1,4 +1,4 @@
-function [pos] = supportposition(players,indexOfPlayers)
+function [posit] = supportposition(players,indexOfPlayers)
 %find the aim position of the defender
 variables;
 l=sin(pi/4)*d_ball;
@@ -40,13 +40,13 @@ dis=[distanceA,distanceB,distanceC,distanceD];
 
 [~, posIndex]=min(dis);
 if posIndex==1
-    pos=posA;
+    posit=posA;
 elseif posIndex==2
-    pos=posB;
+    posit=posB;
 elseif posIndex==3
-    pos=posC;
+    posit=posC;
 elseif posIndex==4
-    pos=posD;
+    posit=posD;
 
 
 
