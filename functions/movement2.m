@@ -8,8 +8,8 @@ function [x,y,phi,v] = movement2(X,Y,x_goal,y_goal,phi,v)
     goal_phi=phicalculate(X,Y,x_goal,y_goal);
 
     %%%%%%% turn to right angle before run
-    if abs(goal_phi-phi) > omega*sample_time    
-         if (goal_phi-phi) > 0
+    if abs(wrapToPi(goal_phi)-wrapToPi(phi)) > omega*sample_time    
+         if turn(phi,goal_phi)==1
             phi = phi+omega*sample_time+noise;
          else
             phi = phi-omega*sample_time+noise;
