@@ -12,7 +12,7 @@ posB=[rx+l,ry+l];
 posC=[rx-l,ry-l];
 posD=[rx+l,ry-l];
 
-pos=[posA,posB,posC,posD];
+pos=[posA;posB;posC;posD];
 
 
 if indexOfPlayers<4

@@ -1,4 +1,4 @@
-function [players,ball] = chaseball(players,ball,indexOfPlayers)
+function [players,ball,last_possession] = chaseball(players,ball,indexOfPlayers,last_possession)
 
 variables;
 
@@ -13,76 +13,109 @@ ball_y=ball(1,2);
 
 disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
 
-    if players{3}(indexOfPlayers)==0  % player and its teammates not possess the ball
+if players{3}(indexOfPlayers)==0  % player not possess the ball
         
-        if indexOfPlayers <=4
-            if players{3}(1:4) == 0
+    if indexOfPlayers <=4
+        if players{3}(1:4) == 0
 
-                if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
-                        [players,ball] = possession(indexOfPlayers,players, ball);
-                else
-                    if indexOfPlayers == 4 
-                        %if the player does not possess the ball ,move to ball
-                        [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+            if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
+                        [players,ball,last_possession] = possession(indexOfPlayers,players, ball);
+            else
+                if indexOfPlayers == 4 
+                 
+                %move to ball
+                [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                      
                 
-                    elseif indexOfPlayers == 3
-        
-                        if disttoball<=maxactdist
+                elseif indexOfPlayers == 3 
+
+                    if ball(1,1) > xlimit_outer/2
+
+                        %go to efend position
+                        [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
+                        
+                    else
+                    
+                        if disttoball<=maxactdist || ball(1,1) < penaltyarea_xlimit+xlimit_boarderstrip
                     
                             [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
                         else
         
-                            %do nothing
+                            %go to efend position
                             [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
         
                         end
+                    end
                     
-                    elseif indexOfPlayers == 2 
+                elseif indexOfPlayers == 2 
                     
-                        if players{3}(3:4) == 0
-                            
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);        
+                       
+                end
+            end
+                
+        else
+                if indexOfPlayers == 2
+
+                    [pos] = supportposition(players,indexOfPlayers);
+                    [players] = target(indexOfPlayers,players,ball,pos(1),pos(2));
+
+                elseif indexOfPlayers == 3 
+
+                    if ball(1,1) > xlimit_outer/2
+
+                        %go to efend position
+                        [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
+                        
+                    else
+                    
+                        if disttoball<=maxactdist || ball(1,1) < penaltyarea_xlimit+xlimit_boarderstrip
+                    
                             [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
                         else
-                            
-                            [players] = target(indexOfPlayers,players,ball,near_point(id,1),near_point(id,2));
-                       
+        
+                            %go to efend position
+                            [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
+        
                         end
                     end
+
                 end
-            end
-        else
+
+        end
+    else
 
             if players{3}(5:8) == 0
                 if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
-                        [players,ball] = possession(indexOfPlayers,players, ball);
+                        [players,ball,last_possession] = possession(indexOfPlayers,players, ball);
                 else
                     if indexOfPlayers == 6 %support attacker
-    
-                        if players{3}(7:8) == 0
-                            
-                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+         
+                         [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
-                        else
-                            [pos] = supportposition(players,indexOfPlayers);
-                            [players] = target(indexOfPlayers,players,ball,pos(1),pos(2));
-                       
-                        end
-
                     elseif indexOfPlayers ==7
                         
-                        if disttoball<=maxactdist
+                      if ball(1,1) < xlimit_outer/2
+
+                        %go to defend position
+                        [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
                     
-                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                      else
+
+                        if disttoball<=maxactdist || ball(1,1) >= xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit
+                    
+                        [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
                         else
-        
-                            %do nothing
-                            [players] = target(indexOfPlayers,players,ball,xlimit_inner-penaltyarea_xlimit,ylimit_outer/2);
-        
+            
+                            %go to defend position
+                            [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
+            
                         end
+                       
+                      end
                     
                     elseif indexOfPlayers == 8
                         
@@ -90,36 +123,69 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
                     
                     end
                 end
-            end
-        end
+            else
+                if indexOfPlayers == 6
 
-    else %possess the ball 
+                    [pos] = supportposition(players,indexOfPlayers);
+                    [players] = target(indexOfPlayers,players,ball,pos(1),pos(2));
+
+                elseif indexOfPlayers == 7
+
+                    if ball(1,1) < xlimit_outer/2
+
+                        %go to defend position
+                        [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
+                    
+                    else
+
+                        if disttoball<=maxactdist || ball(1,1) >= xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit
+                    
+                        [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+            
+                            %go to defend position
+                            [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
+            
+                        end
+                       
+                    end
+                
+                    
+                
+                end
+            end
+    end
+
+else %possess the ball 
 
         if indexOfPlayers==4 || indexOfPlayers == 8
            
             playerIndex=shortPass(players,indexOfPlayers);
             [goal_phi,goal_x,goal_y] = kickaim(players,indexOfPlayers);
             dist_to_goal = sqrt((goal_x - rx)^2 + (goal_y - ry)^2);
-            
+
             prob = rand;
 
-            if dist_to_goal < 2*d_ball
+            if prob>=0.5
 
-                if prob<0.7
-                    
+                kick_radius = d_ball;
+
+            else
+
+                kick_radius = 2*d_ball;
+
+            end
+
+            if dist_to_goal < kick_radius
+                          
                     [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
-                    
-                else
-                    goal_x=players{1}(playerIndex,1);
-                    goal_y=players{1}(playerIndex,2);
-                    t_phi = phicalculate(rx,ry,goal_x,goal_y);
-                    [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
-                end
-
-
+     
             else 
+                
                 [players] = target(indexOfPlayers,players,ball,goal_x,goal_y); %need tx,ty to be selected near goal 
                 [ball] = dribble(players,ball,indexOfPlayers);
+            
             end
         
         elseif indexOfPlayers==2
@@ -219,12 +285,9 @@ disttoball=sqrt((ball_x - rx)^2 + (ball_y - ry)^2);
             
             t_phi = phicalculate(rx,ry,tx,ty);
             [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
-
-
         end
-    end
-
-
-
 
 end
+end
+   
+    

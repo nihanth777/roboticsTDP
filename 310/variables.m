@@ -29,8 +29,8 @@ penaltymark = 1.5*scaling;
 
 robot_radius = 0.15*scaling;
 
-goal_point1 = 1.7*scaling;
-goal_point2 = 4.3*scaling;
+goal_point1 = 2.7*scaling;
+goal_point2 = 5.3*scaling;
 
 x_ball_init = xlimit_outer/2;
 y_ball_init = ylimit_outer/2;
@@ -38,9 +38,9 @@ y_ball_init = ylimit_outer/2;
 nPlayers = 8;
 
 
-V=0.35*scaling;%max robot speed
-a=0.3*scaling;
-V_ball=0.52*scaling;%mean ball speed
+V=1.05*scaling;%max robot speed
+a=1*scaling;
+V_ball=1.5*scaling;%mean ball speed
 d_ball=1.062*scaling;%max ball distance
 t_ball=d_ball/V_ball;%time for ball to stop
 a_ball=V_ball*2/t_ball;

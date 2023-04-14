@@ -16,17 +16,13 @@ players{2}(nPlayers/2+1:nPlayers,2)=pi;
 score_home = 0; 
 score_away = 0;
 
-
 rv=0;
 phi=pi/4;
-
-
 
 %initial position ball
 
 x_ball_init = xlimit_outer/2;
 y_ball_init = ylimit_outer/2;
-
 
 %ball simulation
 % if ball is free, ball_flag=0
@@ -48,6 +44,13 @@ ball = InitializeBall(PositionBall, VelBall, AccBall);
 players{3}(4)
 players{3}(8)
 
+if players{3}(4) == 1
+    last_possession = 4;
+elseif players{3}(8) == 1
+    last_possession = 8;
+end
+
+
 % Timesteps of the simulation in seconds
 timeSteps = 4500;
 % Time between drawing of each plot
@@ -59,10 +62,11 @@ time=0;
 initialplayers=players;
 
 while time < timeSteps
+    
+    [score_home, score_away, players, ball] = goalscore(players, ball, score_home, score_away);
+    [flag_checkbound] = checkOutOfBounds(ball,last_possession);
 
-    
-    
-    [players,ball]=Update1(players,ball);
+    [players,ball,last_possession]=Update1(players,ball,flag_checkbound,last_possession);
 
     if time~=0
         delete(p1);
@@ -72,18 +76,7 @@ while time < timeSteps
     end 
 
     [p1,p2,p3,players]=plotplayers(players,robot_radius);%plot players
-    p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball
-    
-    % controller. check boundary and mark score
-    % check the boundary
-    check_bound = checkOutOfBounds(ball);
-    if check_bound == true
-        ball = InitializeBall(PositionBall, VelBall, AccBall);
-        players=initialplayers;
-
-    end
-    % mark score
-    [score_home, score_away] = goalscore(ball, score_home, score_away);
+    p4=ballposition(ball(1,1),ball(1,2),ball_radius);%plot ball    
 
     time=time+1;
     pause(timeSync);

@@ -1,10 +1,8 @@
 function [playerIndex]=shortPass(players,indexOfPlayers)
-    %[players,ball] = possession(indexOfPlayers,players, ball);
-    %if players{3}(indexOfPlayers)==2 % for goalkeeper
-
+   
     dis = radiusOfPlayer(players);
     Minpassdis=10; % shortest passing distance
-    %distance=dis(indexOfPlayers,:);
+   
 
 
     if indexOfPlayers<=4
