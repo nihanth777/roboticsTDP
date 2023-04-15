@@ -49,11 +49,8 @@ if players{1}(index,1) < tx && players{1}(index,2) > ty  %need condition for all
     index_near = shortPass(players,index);
     goal_phi = phicalculate(players{1}(index,1),players{1}(index,2),players{1}(index_near,1),players{1}(index_near,2));
     [players,ball] = kick(players,ball,index,goal_phi);
+    pause(5);
     flag = 0;
 
 end
-
-
-
 end
-

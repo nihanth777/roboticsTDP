@@ -179,13 +179,13 @@ else %possess the ball
 
             if dist_to_goal < kick_radius
                           
-                    [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
      
             else 
-                
+
                 [players] = target(indexOfPlayers,players,ball,goal_x,goal_y); %need tx,ty to be selected near goal 
                 [ball] = dribble(players,ball,indexOfPlayers);
-            
+
             end
         
         elseif indexOfPlayers==2
@@ -197,6 +197,20 @@ else %possess the ball
             goal_point = [rx,ry;goal_x,goal_y];
             
             goal_dist = pdist(goal_point,"euclidean");
+
+            [num] = nearOpponentsNum(players,indexOfPlayers);
+            
+            if num == 3
+                    
+                playerIndex = 3;
+                [px,py,~,~,~] = playerPosition(playerIndex,players,ball);
+          
+                tx = px;
+                ty = py;
+                t_phi = phicalculate(rx,ry,tx,ty);
+                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+
+            end
         
             if goal_dist <= distance_all(indexOfPlayers,4) && goal_dist < d_ball/2
               
@@ -247,6 +261,20 @@ else %possess the ball
             goal_point = [rx,ry;goal_x,goal_y];
             
             goal_dist = pdist(goal_point,"euclidean");
+
+            [num] = nearOpponentsNum(players,indexOfPlayers);
+            
+            if num == 3
+                    
+                playerIndex = 7;
+                [px,py,~,~,~] = playerPosition(playerIndex,players,ball);
+          
+                tx = px;
+                ty = py;
+                t_phi = phicalculate(rx,ry,tx,ty);
+                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+
+            end
         
             if goal_dist <= distance_all(indexOfPlayers,8) && goal_dist < d_ball/2
               

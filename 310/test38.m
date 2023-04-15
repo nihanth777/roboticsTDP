@@ -61,6 +61,12 @@ time=0;
 
 initialplayers=players;
 
+
+%score board initialise
+
+displayScoreBoard(0, 0);
+
+
 while time < timeSteps
     
     [score_home, score_away, players, ball] = goalscore(players, ball, score_home, score_away);

@@ -77,9 +77,26 @@ else %player does not have the ball
 
               %move to the nearest point on goal line towards the ball
 
+              if ball(1,2) > goal_point2
+
+                  ty = goal_point2;
+
+              elseif ball(1,2) < goal_point1
+
+                  ty = goal_point2;
+
+              else
+
+                  ty = ball(1,2);
+
+              end
+           
+              [players] = target(indexOfPlayers,players,ball,x_gk_home_init,ty);
+
           elseif indexOfPlayers == 5 && ball_x > xlimit_boarderstrip+xlimit_inner-penaltyarea_xlimit && (ball_y > 1.5*scaling || ball_y < 6.5)
 
               %move to the nearest point on goal line towards the ball
+              [players] = target(indexOfPlayers,players,ball,x_gk_away_init,ball(1,2));
           
           else
               [players] = target(indexOfPlayers,players,ball,keep_x,keep_y);
