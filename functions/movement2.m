@@ -23,7 +23,7 @@ function [x,y,phi,v] = movement2(X,Y,x_goal,y_goal,phi,v)
          phi = goal_phi;
          
          %%%%%% if distance is close enough, deaccelerate
-         if sqrt((x_goal-x)^2 + (y_goal-y)^2) <= 0.5*V^2/a
+         if sqrt((x_goal-x)^2 + (y_goal-y)^2) <= 0.5*v^2/a
             if v-sample_time*a > 0
                 vx = v*cos(goal_phi);
                 vy = v*sin(goal_phi);
