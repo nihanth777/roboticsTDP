@@ -40,7 +40,7 @@ nPlayers = 8;
 
 V=1.05*scaling;%max robot speed
 a=1*scaling;
-V_ball=1.5*scaling;%mean ball speed
+V_ball=0.52*scaling;%mean ball speed
 d_ball=1.062*scaling;%max ball distance
 t_ball=d_ball/V_ball;%time for ball to stop
 a_ball=V_ball*2/t_ball;
