@@ -52,7 +52,7 @@ end
 
 
 % Timesteps of the simulation in seconds
-timeSteps = 4500;
+timeSteps = 6000;
 % Time between drawing of each plot
 timeSync = 0.1;
 
@@ -63,7 +63,8 @@ initialplayers=players;
 
 
 %score board initialise
-
+% state=string(flag_gamestart);
+% displayScoreGUI(0, 0,state);
 displayScoreBoard(0, 0);
 
 

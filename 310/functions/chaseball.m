@@ -37,6 +37,8 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                     else
                     
                         if disttoball<=maxactdist || ball(1,1) < penaltyarea_xlimit+xlimit_boarderstrip
+                        %skye
+                        %if disttoball<=maxactdist && ball(1,1) < penaltyarea_xlimit+xlimit_boarderstrip
                     
                             [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
@@ -65,7 +67,7 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
 
                     if ball(1,1) > xlimit_outer/2
 
-                        %go to efend position
+                        %go to defend position
                         [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
                         
                     else
@@ -210,21 +212,22 @@ else %possess the ball
                 t_phi = phicalculate(rx,ry,tx,ty);
                 [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
 
-            end
+            else
         
-            if goal_dist <= distance_all(indexOfPlayers,4) && goal_dist < d_ball/2
-              
-                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
-               
-            else 
-        
-                [p4x,p4y,~,~,~] = playerPosition(4,players,ball);
-              
-                tx = p4x;
-                ty = p4y;
-                t_phi = phicalculate(rx,ry,tx,ty);
-                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+                if goal_dist <= distance_all(indexOfPlayers,4) && goal_dist < d_ball/2
+                  
+                    [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+                   
+                else 
             
+                    [p4x,p4y,~,~,~] = playerPosition(4,players,ball);
+                  
+                    tx = p4x;
+                    ty = p4y;
+                    t_phi = phicalculate(rx,ry,tx,ty);
+                    [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+                
+                end
             end
             
             
@@ -274,23 +277,23 @@ else %possess the ball
                 t_phi = phicalculate(rx,ry,tx,ty);
                 [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
 
-            end
+            else
         
-            if goal_dist <= distance_all(indexOfPlayers,8) && goal_dist < d_ball/2
-              
-                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
-               
-            else 
-        
-                [p8x,p8y,~,~,~] = playerPosition(8,players,ball);
-              
-                tx = p8x;
-                ty = p8y;
-                t_phi = phicalculate(rx,ry,tx,ty);
-                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+                if goal_dist <= distance_all(indexOfPlayers,8) && goal_dist < d_ball/2
+                  
+                    [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+                   
+                else 
             
-            end
+                    [p8x,p8y,~,~,~] = playerPosition(8,players,ball);
+                  
+                    tx = p8x;
+                    ty = p8y;
+                    t_phi = phicalculate(rx,ry,tx,ty);
+                    [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
                 
+                end
+            end
         elseif indexOfPlayers == 7
 
             distance_all = radiusOfPlayer(players);

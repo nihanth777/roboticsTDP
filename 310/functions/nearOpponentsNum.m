@@ -13,7 +13,7 @@ else
     disToOpponents=dis(indexOfPlayers,1:4);
 end
 
-num = sum(disToOpponents > R);
+num = sum(disToOpponents < R);
 
 end
 
