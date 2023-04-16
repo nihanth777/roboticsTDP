@@ -23,21 +23,22 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
             else
                 if indexOfPlayers == 4 
                  
-                [p4x,p4y,bx,by,~] = playerPosition(4,players,ball);
-
-                %move to ball only if opp or else stay in defending
-                if(bx>175)
-                [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                %move to ball
+                %[players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                %g -he will move to the ball only in opp half in own team
+                %half hes makes space
+                 
+                if ball(1,1)>180
+                    [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                 else
-                [players] = target(indexOfPlayers,players,ball,ball_x+5,ball_y+5);
+                    [players] = target(indexOfPlayers,players,ball,(ball_x+170)/2,(ball_y+130)/2);
                 end
-                
-                elseif indexOfPlayers == 2
+                %%g code for player 4 ends here
+                elseif indexOfPlayers == 3 
 
                     if ball(1,1) > xlimit_outer/2
 
                         %go to efend position
-
                         [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
                         
                     else
@@ -49,70 +50,78 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                         else
         
                             %go to defend position
-                            [p1x,p1y,bx,by,~] = playerPosition(1,players,ball);
-                            [players] = target(2,players,ball,ball_x,ball_y);
+                            [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
         
                         end
                     end
                     
-                elseif indexOfPlayers == 3
-                    
-                           [p1x,p1y,bx,by,~] = playerPosition(1,players,ball);
-                           [players] = target(2,players,ball,(p1x+94)/2,(p1y+94)/2);
-              
+                elseif indexOfPlayers == 2 
+                                
+                            [p2x,p2y,bx,by,~] = playerPosition(2,players,ball);
+                            [players] = target(indexOfPlayers,players,ball,(30+((bx)/3)),(192+by)/3);
+                          
                        
                 end
             end
                 
-        else
+        else    
                 if players{3}(4)==1
-                    [p4x,p4y,bx,by,~] = playerPosition(4,players,ball);
+                      %gcode - 
                     %[pos] = supportposition(players,indexOfPlayers);
-                    [players] = target(2,players,ball,(170+p4x)/2,(70+p4y)/2);
-                    [players] = target(3,players,ball,(180+p4x)/2,(180+p4y)/2);
-                    
-                  %%%% moving forward 
-                    if (bx>240)
-                     playerIndex=shortPass(players,4);
-                     [x1,y1,bx,by,~] = playerPosition(4,players,ball);
-                     [x2,y2,bx,by,~] = playerPosition(2,players,ball);
-                     t_phi = phicalculate(x1,y1,x2,y2);
-                     [players,ball] = kick(players,ball,2,t_phi);
+                    [p4x,p4y,bx,by,~] = playerPosition(4,players,ball);
+                    [players] = target(2,players,ball,(200+bx)/2,(170+by)/2);
+                    [players] = target(3,players,ball,(270+bx)/2,(70+by)/2);
 
+                
+                elseif indexOfPlayers == 2
+
+                    [pos] = supportposition(players,indexOfPlayers);
+                    [players] = target(indexOfPlayers,players,ball,pos(1)+10,pos(2)+10);
+
+                elseif indexOfPlayers == 3 
+                    %gcode for defending
+                    if ball(1,1)<170
+                         [p3x,p3y,bx,by,~] = playerPosition(3,players,ball);
+                         [players] = target(indexOfPlayers,players,ball,(40+bx)/2,(140+by)/2);
                     end
-                
-            
-                
-                end
 
-                
+                    if ball(1,1) > xlimit_outer/2
+
+                        %go to defend position
+                        [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
+                        
+                    else
+                    
+                        if disttoball<=maxactdist || ball(1,1) < penaltyarea_xlimit+xlimit_boarderstrip
+                    
+                            [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        
+                        else
+        
+                            %go to defend position
+                            [players] = target(indexOfPlayers,players,ball,penaltyarea_xlimit+xlimit_boarderstrip,ylimit_outer/2);
+        
+                        end
+                    end
+              end
         
         end
+    
     else
 
             if players{3}(5:8) == 0
                 if abs(rx-ball_x)<=4.8 && abs(ry-ball_y)<=4.8 %improve: adding probability of interception
                         [players,ball,last_possession] = possession(indexOfPlayers,players, ball);
                 else
-                    [p1x,p1y,bx,by,~] = playerPosition(1,players,ball);
-                    if indexOfPlayers == 6 %support 
-                        [p6x,p6y,bx,by,~] = playerPosition(6,players,ball);
-                        if(bx>190)
-                            [players] = target(6,players,ball,280,100);
-                
-                        end
-                        
+                    if indexOfPlayers == 6 %support attacker
          
                          [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                         
                     elseif indexOfPlayers ==7
-                         [p6x,p6y,bx,by,~] = playerPosition(7,players,ball);
-                         if(bx>200)
-                            [players] = target(7,players,ball,280,164);
-                
-                        end
-                        
-                       
+
+                      if ball(1,1)>200
+                         [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                      end
                         
                       if ball(1,1) < xlimit_outer/2
 
@@ -120,14 +129,12 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                         [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
                     
                       else
-
-                        if disttoball<=maxactdist || ball(1,1) >= xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit
+                          if disttoball<=maxactdist || ball(1,1) >= xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit
                     
                         [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
-                        
+                 
                         else
-            
-                            %go to defend position
+
                             [players] = target(indexOfPlayers,players,ball,xlimit_inner+xlimit_boarderstrip-penaltyarea_xlimit,ylimit_outer/2);
             
                         end
@@ -136,12 +143,35 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                     
                     elseif indexOfPlayers == 8
                         
+                        %[players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        %g code for player 8 same 
+                        if ball(1,1)<180
                         [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+                        else
+                        [players] = target(indexOfPlayers,players,ball,(ball_x+170)/2,(ball_y+130)/2);
+                         end
                     
                     end
                 end
             else
-                if indexOfPlayers == 6
+                 %gcode semi circle formation
+                 if  players{3}(8)==1
+                      %gcode - 
+                    %[pos] = supportposition(players,indexOfPlayers);
+                    [p8x,p8y,bx,by,~] = playerPosition(8,players,ball);
+
+                    r = 50;
+                   theta1 = pi/8; 
+                   theta2 = pi/2; %gcode can change to 90+ and r
+                   x1 = bx + r*cos(theta1);
+                   y1 = by + r*sin(theta1);
+                   x2 = bx + r*cos(theta2);
+                   y2 = by + r*sin(theta2);
+    
+
+                    [players] = target(7,players,ball,x1+10,y1);
+                    [players] = target(6,players,ball,x2,y2);
+                 elseif indexOfPlayers == 6
 
                     [pos] = supportposition(players,indexOfPlayers);
                     [players] = target(indexOfPlayers,players,ball,pos(1),pos(2));
@@ -175,7 +205,7 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
     end
 
 else %possess the ball 
-
+     % g code fro 4 and 8 players
         if indexOfPlayers==4 
            
             playerIndex=shortPass(players,indexOfPlayers);
@@ -195,27 +225,21 @@ else %possess the ball
             end
 
             if dist_to_goal < kick_radius
-
                           
-                    [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
      
             else 
-                %%rand circle position
-                [players] = target(indexOfPlayers,players,ball,250,140); %need tx,ty to be selected near goal 
+                %g kicked befor 3 points diversion
+                [players] = target(indexOfPlayers,players,ball,260,134); %need tx,ty to be selected near goal 
                 [ball] = dribble(players,ball,indexOfPlayers);
+                %g code for teammates for 4
+                [px,py,~,~,~] = playerPosition(8,players,ball);
+                [players] = target(6,players,ball,(px+270)/2,(py+70)/2);
+                [players] = target(7,players,ball,(px+270)/2,(py+170)/2);
 
-                %%% keeping 2 opp players away
-                [players] = target(6,players,ball,280,150);
-                [players] = target(7,players,ball,280,150);
-
-                %%%adding for pass
-                
-
-              
             end
-        %%%%%%%%%
-        elseif indexOfPlayers== 8
-           
+        elseif indexOfPlayers==8 
+
             playerIndex=shortPass(players,indexOfPlayers);
             [goal_phi,goal_x,goal_y] = kickaim(players,indexOfPlayers);
             dist_to_goal = sqrt((goal_x - rx)^2 + (goal_y - ry)^2);
@@ -234,24 +258,20 @@ else %possess the ball
 
             if dist_to_goal < kick_radius
                           
-                    [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
+                [players,ball] = kick(players,ball,indexOfPlayers,goal_phi);
      
             else 
-                %% rand circle position
-                [players] = target(indexOfPlayers,players,ball,134,100); %need tx,ty to be selected near goal 
+                 %gcode add 3 points diversion
+                [players] = target(indexOfPlayers,players,ball,73,108); %need tx,ty to be selected near goal 
                 [ball] = dribble(players,ball,indexOfPlayers);
 
-                %%%% CHECK THIS Y NOT MOVING 
-                [p8x,p8y,bx,by,~] = playerPosition(8,players,ball);
-                [players] = target(6,players,ball,120,60);
-                [players] = target(7,players,ball,120,200);
+                %gcode for teammates how to respond when 8 gets the ball
+                %give y will change the angle of apporch like 70 80 90
+                [px,py,~,~,~] = playerPosition(8,players,ball);
+                [players] = target(6,players,ball,(px+70)/2,(py+70)/2);
+                [players] = target(7,players,ball,(px+70)/2,(py+170)/2);
 
-                [players] = target(2,players,ball,280,150);
-                [players] = target(3,players,ball,p8x,p8y);
-
-            
             end
-        %%%%%%%%%%
         elseif indexOfPlayers==2
             
             distance_all = radiusOfPlayer(players);
@@ -261,6 +281,20 @@ else %possess the ball
             goal_point = [rx,ry;goal_x,goal_y];
             
             goal_dist = pdist(goal_point,"euclidean");
+
+            [num] = nearOpponentsNum(players,indexOfPlayers);
+            
+            if num == 3
+                    
+                playerIndex = 3;
+                [px,py,~,~,~] = playerPosition(playerIndex,players,ball);
+          
+                tx = px;
+                ty = py;
+                t_phi = phicalculate(rx,ry,tx,ty);
+                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+
+            end
         
             if goal_dist <= distance_all(indexOfPlayers,4) && goal_dist < d_ball/2
               
@@ -311,6 +345,20 @@ else %possess the ball
             goal_point = [rx,ry;goal_x,goal_y];
             
             goal_dist = pdist(goal_point,"euclidean");
+
+            [num] = nearOpponentsNum(players,indexOfPlayers);
+            
+            if num == 3
+                    
+                playerIndex = 7;
+                [px,py,~,~,~] = playerPosition(playerIndex,players,ball);
+          
+                tx = px;
+                ty = py;
+                t_phi = phicalculate(rx,ry,tx,ty);
+                [players,ball] = kick(players,ball,indexOfPlayers,t_phi);
+
+            end
         
             if goal_dist <= distance_all(indexOfPlayers,8) && goal_dist < d_ball/2
               
@@ -352,7 +400,6 @@ else %possess the ball
         end
 
 end
-
 end
    
     
