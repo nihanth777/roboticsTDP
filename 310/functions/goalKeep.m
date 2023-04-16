@@ -67,11 +67,11 @@ else %player does not have the ball
         else 
           if disttoball < maxactdist && indexOfPlayers == 1 && ball_x < xlimit_boarderstrip+goalarea_xlimit && (ball_y > 2.5*scaling || ball_y < 5.5*scaling)
                
-              [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+              [players] = gkTarget(indexOfPlayers,players,ball,ball_x,ball_y);
 
           elseif disttoball < maxactdist && indexOfPlayers == 5 && ball_x > xlimit_boarderstrip+xlimit_inner-goalarea_xlimit &&(ball_y > 2.5*scaling || ball_y < 5.5*scaling)
               
-              [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
+              [players] = gkTarget(indexOfPlayers,players,ball,ball_x,ball_y);
 
           elseif indexOfPlayers == 1 && ball_x < xlimit_boarderstrip+penaltyarea_xlimit && (ball_y > 1.5*scaling || ball_y < 6.5)
 
@@ -91,19 +91,19 @@ else %player does not have the ball
 
               end
            
-              [players] = target(indexOfPlayers,players,ball,x_gk_home_init,ty);
+              [players] = gkTarget(indexOfPlayers,players,ball,x_gk_home_init,ty);
 
           elseif indexOfPlayers == 5 && ball_x > xlimit_boarderstrip+xlimit_inner-penaltyarea_xlimit && (ball_y > 1.5*scaling || ball_y < 6.5)
 
               %move to the nearest point on goal line towards the ball
-              [players] = target(indexOfPlayers,players,ball,x_gk_away_init,ball(1,2));
+              [players] = gkTarget(indexOfPlayers,players,ball,x_gk_away_init,ball(1,2));
           
           else
-              [players] = target(indexOfPlayers,players,ball,keep_x,keep_y);
+              [players] = gkTarget(indexOfPlayers,players,ball,keep_x,keep_y);
           end
         end
     else
-        [players] = target(indexOfPlayers,players,ball,keep_x,keep_y);
+        [players] = gkTarget(indexOfPlayers,players,ball,keep_x,keep_y);
 
         if abs(players{1}(indexOfPlayers,1)-keep_x)<=4.8 && abs(players{1}(indexOfPlayers,2)-keep_y)<=4.8
         %turn to the right angle
