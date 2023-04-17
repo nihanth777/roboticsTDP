@@ -31,6 +31,7 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                 if ball(1,1)>180
                     [players] = target(indexOfPlayers,players,ball,ball_x,ball_y);
                 else
+                    
                     [players] = target(indexOfPlayers,players,ball,(ball_x+170)/2,(ball_y+130)/2);
                 end
                 %%g code for player 4 ends here
@@ -58,7 +59,7 @@ if players{3}(indexOfPlayers)==0  % player not possess the ball
                 elseif indexOfPlayers == 2 
                                 
                             [p2x,p2y,bx,by,~] = playerPosition(2,players,ball);
-                            [players] = target(indexOfPlayers,players,ball,(30+((bx)/3)),(192+by)/3);
+                            [players] = target(indexOfPlayers,players,ball,(30+((bx)/3)),(192+by)/2);%2 and 3 matters in y
                           
                        
                 end
