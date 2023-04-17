@@ -24,7 +24,7 @@ for indexOfPlayer = 1:8
             [players,ball,last_possession]=goalKeep(players,ball,indexOfPlayer,last_possession);
     
         else % defender or attacker
-            [players, ball,last_possession] = chaseball(players, ball, indexOfPlayer,last_possession);
+            [players, ball,last_possession] = chaseball2(players, ball, indexOfPlayer,last_possession);
     
         end
     end
