@@ -52,7 +52,7 @@ end
 
 
 % Timesteps of the simulation in seconds
-timeSteps = 6000;
+timeSteps = 4000;
 % Time between drawing of each plot
 timeSync = 0.1;
 
@@ -65,15 +65,30 @@ initialplayers=players;
 %score board initialise
 % state=string(flag_gamestart);
 % displayScoreGUI(0, 0,state);
-displayScoreBoard(0, 0);
+displayScoreBoard(0, 0,'First Half');
 
 
 while time < timeSteps
-    
-    [score_home, score_away, players, ball] = goalscore(players, ball, score_home, score_away);
+    halftime=2000;
+    if time<=halftime
+        gamesection='First Half';
+    else
+        gamesection='Second Half';
+    end
+
+
+    [score_home, score_away, players, ball] = goalscore(players, ball, score_home, score_away,gamesection);
     [flag_checkbound] = checkOutOfBounds(ball,last_possession);
 
-    [players,ball,last_possession]=Update1(players,ball,flag_checkbound,last_possession);
+    if time<halftime
+        [players,ball,last_possession]=Update1(players,ball,flag_checkbound,last_possession);
+        
+    elseif time==halftime
+        displayScoreBoard(score_home, score_away,'Second Half');
+    else
+        [players,ball,last_possession]=Update1(players,ball,flag_checkbound,last_possession);
+    end 
+
 
     if time~=0
         delete(p1);
